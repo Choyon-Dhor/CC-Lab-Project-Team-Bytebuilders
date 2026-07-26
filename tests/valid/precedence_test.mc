@@ -1,0 +1,10 @@
+int a;
+int b;
+int c;
+bool r;
+a = 5;
+b = 10;
+c = a + b * 2;
+r = a < b && !r || b >= 3;
+c = -a + 2;
+c = (a + b) * 2;
