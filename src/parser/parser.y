@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
+#include "semantic_analyzer.h"
 
 int yylex(void);
 void yyerror(const char *s);
@@ -171,6 +172,12 @@ int main(int argc, char **argv) {
     printf("\n----- ABSTRACT SYNTAX TREE -----\n");
     ast_print_list(ast_root, 0);
 
-    printf("\n[Day 2] SUCCESS — parsed into a valid AST.\n");
+    int semantic_errors = semantic_analyze(ast_root);
+    if (semantic_errors > 0) {
+        fprintf(stderr, "\nCompilation failed: %d semantic error(s) found.\n", semantic_errors);
+        return 1;
+    }
+
+    printf("\n[Day 3] SUCCESS — parsed and semantically validated.\n");
     return 0;
 }
