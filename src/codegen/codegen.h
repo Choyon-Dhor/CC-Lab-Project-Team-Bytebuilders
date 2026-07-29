@@ -27,7 +27,7 @@ typedef struct TACInstr
     struct TACInstr *next;
 } TACInstr;
 
-/ TACInstr *codegen_generate(ASTNode *root);
+TACInstr *codegen_generate(ASTNode *root);
 
 void codegen_print(TACInstr *list);
 
