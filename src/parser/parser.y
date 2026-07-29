@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "ast.h"
 #include "semantic_analyzer.h"
+#include "codegen.h"
 
 int yylex(void);
 void yyerror(const char *s);
