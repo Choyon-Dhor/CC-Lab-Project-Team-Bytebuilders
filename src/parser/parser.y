@@ -183,6 +183,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    printf("\n----- THREE ADDRESS CODE -----\n");
+    TACInstr *tac = codegen_generate(ast_root);
+    codegen_print(tac);
+    codegen_free_all(tac);
+
     printf("\nSUCCESS — parsed and semantically validated.\n");
     return 0;
 }
