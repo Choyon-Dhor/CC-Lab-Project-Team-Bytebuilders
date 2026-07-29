@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "ast.h"
 #include "semantic_analyzer.h"
+#include "codegen.h"
 
 int yylex(void);
 void yyerror(const char *s);
@@ -181,6 +182,11 @@ int main(int argc, char **argv) {
         fprintf(stderr, "\nCompilation failed: %d semantic error(s) found.\n", semantic_errors);
         return 1;
     }
+
+    printf("\n----- THREE ADDRESS CODE -----\n");
+    TACInstr *tac = codegen_generate(ast_root);
+    codegen_print(tac);
+    codegen_free_all(tac);
 
     printf("\nSUCCESS — parsed and semantically validated.\n");
     return 0;
