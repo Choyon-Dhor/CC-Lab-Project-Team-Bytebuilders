@@ -8,8 +8,9 @@ int yylex(void);
 void yyerror(const char *s);
 extern int yylineno;
 extern FILE *yyin;
-extern int lexical_error_count;  
+extern int lexical_error_count;
 
+int syntax_error_count = 0;
 
 ASTNode *ast_root = NULL;
 %}
@@ -67,8 +68,8 @@ program:
     ;
 
 stmt_list:
-      %empty            { $$ = NULL; }
-    | stmt_list stmt      { $$ = ast_append_stmt($1, $2); }
+      %empty              { $$ = NULL; }
+    | stmt_list stmt       { $$ = $2 ? ast_append_stmt($1, $2) : $1; }
     ;
 
 stmt:
@@ -78,6 +79,7 @@ stmt:
     | while_stmt
     | print_stmt
     | block
+    | error SEMI { yyerrok; $$ = NULL; }
     ;
 
 type:
@@ -140,6 +142,7 @@ expr:
 %%
 
 void yyerror(const char *s) {
+    syntax_error_count++;
     fprintf(stderr, "Syntax Error at line %d: %s\n", yylineno, s);
 }
 
@@ -164,8 +167,9 @@ int main(int argc, char **argv) {
                 lexical_error_count);
         return 1;
     }
-    if (result != 0) {
-        fprintf(stderr, "\nCompilation failed: syntax error(s) found.\n");
+    if (result != 0 || syntax_error_count > 0) {
+        fprintf(stderr, "\nCompilation failed: %d syntax error(s) found.\n",
+                syntax_error_count);
         return 1;
     }
 
@@ -178,6 +182,6 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    printf("\n[Day 3] SUCCESS — parsed and semantically validated.\n");
+    printf("\nSUCCESS — parsed and semantically validated.\n");
     return 0;
 }
