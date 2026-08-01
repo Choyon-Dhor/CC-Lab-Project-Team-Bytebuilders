@@ -1,0 +1,51 @@
+Semantic Error at line 2: variable 'x' is already declared in this scope
+Semantic Error at line 4: variable 'y' is not declared
+Semantic Error at line 5: type mismatch — cannot compare 'int' with 'bool' using '=='
+Semantic Error at line 6: variable 'z' is not declared
+
+Compilation failed: 4 semantic error(s) found.
+----- TOKEN STREAM -----
+  line 1     INT           int
+  line 1     IDENTIFIER    x
+  line 1     SEMI          ;
+  line 2     INT           int
+  line 2     IDENTIFIER    x
+  line 2     SEMI          ;
+  line 3     IDENTIFIER    x
+  line 3     ASSIGN        =
+  line 3     INT_LIT       5
+  line 3     SEMI          ;
+  line 4     IDENTIFIER    y
+  line 4     ASSIGN        =
+  line 4     INT_LIT       10
+  line 4     SEMI          ;
+  line 5     IF            if
+  line 5     LPAREN        (
+  line 5     IDENTIFIER    x
+  line 5     EQ            ==
+  line 5     TRUE          true
+  line 5     RPAREN        )
+  line 5     LBRACE        {
+  line 6     PRINT         print
+  line 6     IDENTIFIER    z
+  line 6     SEMI          ;
+  line 7     RBRACE        }
+
+----- ABSTRACT SYNTAX TREE -----
+Decl (int x)  [line 1]
+Decl (int x)  [line 2]
+Assign x =  [line 3]
+  IntLit 5  [line 3]
+Assign y =  [line 4]
+  IntLit 10  [line 4]
+If  [line 8]
+  Cond:
+    BinOp '=='  [line 5]
+      Identifier 'x'  [line 5]
+      BoolLit true  [line 5]
+  Then:
+    Block  [line 7]
+      Print  [line 6]
+        Identifier 'z'  [line 6]
+
+----- SEMANTIC ANALYSIS -----
