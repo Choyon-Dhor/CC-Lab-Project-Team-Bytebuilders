@@ -51,14 +51,6 @@ Build a mini compiler front-end using Flex, Bison, and C/C++.
 (Status: core goal achieved — pending the cleanup items above and the
 written Project Report.)
 
-## Remaining Work
-- [ ] Delete `src/semantic/semantic-analyzer.c` and `semantic-analyzer.h`
-- [ ] Confirm `make` builds cleanly end-to-end with Flex/Bison installed
-- [ ] Run `make test` / `make test-md` against the full `tests/` suite and
-      confirm actual output matches each test's "Expected" section
-- [ ] Write `Project Report.pdf`
-- [ ] Final pass on commit history / repository organization before
-      submission
 
 ## Test Coverage Snapshot
 
