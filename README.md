@@ -121,6 +121,26 @@ next phase.
 echo 'int x; x = 5; print x;' > /tmp/t.mc && ./compiler /tmp/t.mc
 ```
 
+## How to run the GUI
+
+The project also has a simple Swing GUI in the `gui/` folder. It lets you open or type a `.mc` file, run the compiler, and see the output in a window.
+
+From the project root, run:
+
+```bash
+make
+javac gui/src/*.java
+java -cp gui/src Main
+```
+
+If the GUI cannot find the compiler binary, point it to the built file like this:
+
+```bash
+java -Dcompiler.path="$PWD/compiler" -cp gui/src Main
+```
+
+If you want a quick GUI-only note, see [gui/README.md](gui/README.md).
+
 ## Running the test suite
 
 We've got test programs under `tests/valid/` and `tests/invalid/`, covering
